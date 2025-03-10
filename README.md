@@ -32,8 +32,8 @@ Runs the task every minute.
 
 ```python
 @scheduler.always
-async def print_time_every_minute():
-    print("Cron time:", datetime.now().strftime("%M %H %d %m %w"))
+async def every_minute():
+    print("This will be called every minute")
 ```
 
 #### Cron
@@ -41,9 +41,9 @@ async def print_time_every_minute():
 Runs the task based on a cron-like schedule.
 
 ```python
-@scheduler.cron("*/2 * * * *")
-async def two_minutes():
-    print("Every 2 minutes")
+@scheduler.cron("*/2 * * * 5")
+async def custom_cron_schedule():
+    print("This will be called every two minutes on Fridays")
 ```
 
 #### Hourly
@@ -52,8 +52,8 @@ Runs the task at the start of every hour.
 
 ```python
 @scheduler.hourly
-async def hourly_task():
-    print("It is now", datetime.now().strftime("%H:%M"))
+async def every_hour():
+    print("This will be called every hour")
 ```
 
 #### Daily
@@ -62,8 +62,8 @@ Runs the task at the start of every day.
 
 ```python
 @scheduler.daily
-async def daily_task():
-    print("Good morning!")
+async def every_day():
+    print("This will be called every day")
 ```
 
 #### Weekly
@@ -72,8 +72,8 @@ Runs the task at the start of every week.
 
 ```python
 @scheduler.weekly
-async def weekly_task():
-    print("This is a weekly task!")
+async def every_week():
+    print("This will be called every week")
 ```
 
 #### Monthly
@@ -82,8 +82,8 @@ Runs the task at the start of every month.
 
 ```python
 @scheduler.monthly
-async def monthly_task():
-    print("Welcome to", datetime.now().strftime("%B"))
+async def every_month():
+    print("This will be called every month")
 ```
 
 #### At Start
@@ -92,10 +92,8 @@ Runs the task once when the scheduler starts.
 
 ```python
 @scheduler.at_start
-async def long_task():
-    print("Long task starting")
-    await asyncio.sleep(5)
-    print("Long task done")
+async def start_task():
+    print("This will be called once when the scheduler starts")
 ```
 
 #### At Specific Time
@@ -105,7 +103,7 @@ Runs the task at a specific datetime.
 ```python
 @scheduler.at(datetime(2025, 3, 10, 18, 29))
 async def future_task():
-    print("This is a task for a specific time.")
+    print("This will be called at 6:29 PM on March 10, 2025")
 ```
 
 ### Running the Scheduler
@@ -119,6 +117,8 @@ await scheduler.run()
 or
 
 ```python
+import asyncio
+
 asyncio.run(scheduler.run())
 ```
 
