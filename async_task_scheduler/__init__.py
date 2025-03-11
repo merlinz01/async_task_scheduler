@@ -178,9 +178,9 @@ class Scheduler:
                 schedule=(
                     lambda x: x == 0,
                     lambda x: x == 0,
+                    lambda x: True,
+                    lambda x: True,
                     lambda x: x == 0,
-                    lambda x: True,
-                    lambda x: True,
                 ),
             )
         )
@@ -193,8 +193,8 @@ class Scheduler:
                 schedule=(
                     lambda x: x == 0,
                     lambda x: x == 0,
-                    lambda x: x == 0,
-                    lambda x: x == 0,
+                    lambda x: x == 1,
+                    lambda x: True,
                     lambda x: True,
                 ),
             )
