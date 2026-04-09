@@ -1,6 +1,6 @@
 import asyncio
 from datetime import datetime
-from typing import Awaitable, Callable, List, Any, Iterable, TypeAlias
+from typing import Any, Awaitable, Callable, Iterable, List, Set, TypeAlias
 
 __all__ = [
     "Task",
@@ -25,11 +25,15 @@ class Task:
         self.args = args
         self.kwargs = kwargs
         self.loop = loop
+        self._asyncio_tasks: Set[asyncio.Task] = set()
+
+    async def _run(self) -> None:
+        await self.func(*self.args, **self.kwargs)
 
     async def run(self) -> None:
-        coro = self.func(*self.args, **self.kwargs)
-        assert asyncio.iscoroutine(coro), "Task function must be a coroutine"
-        self.get_loop().create_task(coro)
+        task = self.get_loop().create_task(self._run())
+        self._asyncio_tasks.add(task)
+        task.add_done_callback(self._asyncio_tasks.discard)
 
     def needs_run(self) -> bool:
         return True
