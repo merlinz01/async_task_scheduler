@@ -1,6 +1,8 @@
 # async_task_scheduler
 
-`async_task_scheduler` is a Python module that allows you to schedule asynchronous tasks using various scheduling strategies such as cron-like schedules, one-time execution, and more.
+`async_task_scheduler` is a Python module that allows you to schedule
+asynchronous tasks using various scheduling strategies such as cron-like
+schedules, one-time execution, and more.
 
 ## Installation
 
